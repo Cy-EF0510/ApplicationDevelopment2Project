@@ -9,7 +9,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final _formKey = GlobalKey<FormState>();
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -26,69 +25,68 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black87,
-        title: Text(
-          "Log In",
-          style: TextStyle(color: Colors.lime),
-        ),
+        title: Text("Log In", style: TextStyle(color: Colors.lime)),
       ),
       backgroundColor: Colors.black87,
       body: Padding(
-          padding: const EdgeInsets.all(30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('Welcome'),
-              SizedBox(height: 26,),
-              Card(
+        padding: const EdgeInsets.all(30),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('Welcome'),
+            SizedBox(height: 26),
+            Card(
+              child: Padding(
+                padding: EdgeInsets.all(16),
                 child: Column(
                   children: [
                     TextField(
-                        controller: _usernameController,
-                        decoration: InputDecoration(
-                            labelText: 'Username',
-                            border: OutlineInputBorder()
-                        )
-                    ),
-                    SizedBox(height: 16,),
-                    TextField(
-
                       controller: _usernameController,
                       decoration: InputDecoration(
-                          labelText: 'Username',
-                          border: OutlineInputBorder()
+                        labelText: 'Username',
+                        border: OutlineInputBorder(),
+                      ),
+                    ),
+                    SizedBox(height: 16),
+                    TextField(
+                      controller: _usernameController,
+                      decoration: InputDecoration(
+                        labelText: 'Username',
+                        border: OutlineInputBorder(),
                       ),
                       obscureText: true,
                     ),
                   ],
-                )
-              ),
-              SizedBox(height: 26,),
-              SizedBox(
-                width: double.infinity,
-                height: 49,
-                child: ElevatedButton(
-                    onPressed: (){
-                      //TODO Handle Login
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.black45,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: Text(
-                      'Login',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold
-                      ),
-                    )
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            SizedBox(height: 26),
+            SizedBox(
+              width: double.infinity,
+              height: 49,
+              child: ElevatedButton(
+                onPressed: () {
+                  //TODO Handle Login
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.black45,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
       // body: Center(
       //   child: Form(
@@ -155,6 +153,7 @@ class _LoginPageState extends State<LoginPage> {
       // ),
     );
   }
+
   // InputDecoration inputDecoration({
   //   InputBorder? enabledBorder,
   //   InputBorder? border,
