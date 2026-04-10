@@ -18,7 +18,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         navigateAfterSeconds: LoginPage(),
         title: Text('Welcome Habibi',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-        backgroundColor: Colors.black12,
+        backgroundColor: const Color.fromARGB(255, 18, 32, 47),
         styleTextUnderTheLoader: TextStyle(),
         image: Image.network('https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Osu%21_Logo_2016.svg/960px-Osu%21_Logo_2016.svg.png?_=20220131190058'),
         photoSize: 100,

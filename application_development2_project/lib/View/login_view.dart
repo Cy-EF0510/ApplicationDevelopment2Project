@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -25,7 +26,8 @@ class _LoginPageState extends State<LoginPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black87,
-        title: Text("Log In", style: TextStyle(color: Colors.lime)),
+        title: Text("Log In", style: TextStyle(color: Colors.amberAccent)),
+        centerTitle: true,
       ),
       backgroundColor: Colors.black87,
       body: Padding(
@@ -34,26 +36,40 @@ class _LoginPageState extends State<LoginPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text('Welcome'),
+            Text(
+              'Welcome',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
             SizedBox(height: 26),
-            Card(
+            Container(
+              width: double.infinity,
+              color: Colors.deepPurpleAccent,
               child: Padding(
                 padding: EdgeInsets.all(16),
                 child: Column(
                   children: [
+                    Text("Username or email"),
                     TextField(
                       controller: _usernameController,
                       decoration: InputDecoration(
                         labelText: 'Username',
                         border: OutlineInputBorder(),
+                        fillColor: Colors.white,
+                        filled: true
                       ),
                     ),
                     SizedBox(height: 16),
+                    Text("Password"),
                     TextField(
                       controller: _usernameController,
                       decoration: InputDecoration(
-                        labelText: 'Username',
+                        labelText: 'Password',
                         border: OutlineInputBorder(),
+                        fillColor: Colors.white,
+                        filled: true
                       ),
                       obscureText: true,
                     ),
@@ -63,16 +79,16 @@ class _LoginPageState extends State<LoginPage> {
             ),
             SizedBox(height: 26),
             SizedBox(
-              width: double.infinity,
+              width: 250,
               height: 49,
               child: ElevatedButton(
                 onPressed: () {
                   //TODO Handle Login
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black45,
+                  backgroundColor: Colors.deepPurpleAccent,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: Text(
@@ -85,6 +101,24 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
+            SizedBox(height: 16,),
+            Text("or sign up with"),
+            SizedBox(height: 16,),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.google, color: Colors.amberAccent,)),
+                IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.facebook, color: Colors.amberAccent,)),
+                IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.twitter, color: Colors.amberAccent,))
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Don't have an account?", style: TextStyle(color: Colors.white),),
+                TextButton(onPressed: (){}, child: Text("Sign up", style: TextStyle(color: Colors.amberAccent),))
+              ],
+            )
           ],
         ),
       ),
