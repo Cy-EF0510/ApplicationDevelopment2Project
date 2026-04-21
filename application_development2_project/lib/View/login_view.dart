@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../constants/app_colors.dart';
+import 'register_view.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../Model/user.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,6 +17,16 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  final Uri _url = Uri.parse(
+    'https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1',
+  );
+
+  Future<void> _launchYoutube() async {
+    if (!await launchUrl(_url, mode: LaunchMode.externalApplication)) {
+      throw Exception('Could not launch $_url');
+    }
+  }
 
   @override
   void dispose() {
@@ -25,11 +40,11 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.black87,
-        title: Text("Log In", style: TextStyle(color: Colors.amberAccent)),
+        backgroundColor: kBg,
+        title: Text("Log In", style: TextStyle(color: kYellow)),
         centerTitle: true,
       ),
-      backgroundColor: Colors.black87,
+      backgroundColor: kBg,
       body: Padding(
         padding: const EdgeInsets.all(30),
         child: Column(
@@ -39,14 +54,14 @@ class _LoginPageState extends State<LoginPage> {
             Text(
               'Welcome',
               style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             ),
             SizedBox(height: 26),
             Container(
               width: double.infinity,
-              color: Colors.deepPurpleAccent,
+              color: kPurpleDim,
               child: Padding(
                 padding: EdgeInsets.all(16),
                 child: Column(
@@ -58,18 +73,18 @@ class _LoginPageState extends State<LoginPage> {
                         labelText: 'Username',
                         border: OutlineInputBorder(),
                         fillColor: Colors.white,
-                        filled: true
+                        filled: true,
                       ),
                     ),
                     SizedBox(height: 16),
                     Text("Password"),
                     TextField(
-                      controller: _usernameController,
+                      controller: _passwordController,
                       decoration: InputDecoration(
                         labelText: 'Password',
                         border: OutlineInputBorder(),
                         fillColor: Colors.white,
-                        filled: true
+                        filled: true,
                       ),
                       obscureText: true,
                     ),
@@ -83,7 +98,11 @@ class _LoginPageState extends State<LoginPage> {
               height: 49,
               child: ElevatedButton(
                 onPressed: () {
-                  //TODO Handle Login
+                  User.checkUserAndNavigate(
+                    _usernameController.text,
+                    _passwordController.text,
+                    context,
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurpleAccent,
@@ -101,111 +120,63 @@ class _LoginPageState extends State<LoginPage> {
                 ),
               ),
             ),
-            SizedBox(height: 16,),
+            SizedBox(height: 16),
             Text("or sign up with"),
-            SizedBox(height: 16,),
+            SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.google, color: Colors.amberAccent,)),
-                IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.facebook, color: Colors.amberAccent,)),
-                IconButton(onPressed: (){}, icon: FaIcon(FontAwesomeIcons.twitter, color: Colors.amberAccent,))
+                IconButton(
+                  onPressed: _launchYoutube,
+                  icon: FaIcon(
+                    FontAwesomeIcons.google,
+                    color: Colors.amberAccent,
+                  ),
+                ),
+                IconButton(
+                  onPressed: _launchYoutube,
+                  icon: FaIcon(
+                    FontAwesomeIcons.facebook,
+                    color: Colors.amberAccent,
+                  ),
+                ),
+                IconButton(
+                  onPressed: _launchYoutube,
+                  icon: FaIcon(
+                    FontAwesomeIcons.twitter,
+                    color: Colors.amberAccent,
+                  ),
+                ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text("Don't have an account?", style: TextStyle(color: Colors.white),),
-                TextButton(onPressed: (){}, child: Text("Sign up", style: TextStyle(color: Colors.amberAccent),))
+                Text(
+                  "Don't have an account?",
+                  style: TextStyle(color: Colors.white),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterPage(),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    "Sign up",
+                    style: TextStyle(color: Colors.amberAccent),
+                  ),
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
-      // body: Center(
-      //   child: Form(
-      //     key: _formKey,
-      //     child: Column(
-      //       children: [
-      //         TextFormField(
-      //           inputFormatters: [FilteringTextInputFormatter.singleLineFormatter],
-      //           keyboardType: TextInputType.text,
-      //           textAlign: TextAlign.center,
-      //           decoration: InputDecoration(
-      //             hintText: 'Username',
-      //             labelText: 'Username'
-      //           ),
-      //           validator: (value){
-      //             if(value == null || value.isEmpty) {
-      //               return 'Please fill in fields';
-      //             }
-      //             return null;
-      //           },
-      //           //TODO: Just decoration for the forms
-      //           // decoration: InputDecoration(
-      //           //   enabledBorder: OutlineInputBorder(
-      //           //       borderSide:BorderSide(color: Colors.blueGrey, width: 2.0)),
-      //           //   border: OutlineInputBorder(borderSide: BorderSide()),
-      //           //   fillColor: Colors.white,
-      //           //   filled: true,
-      //           //   prefixIcon: Icon(Icons.account_box_outlined),
-      //           //   suffixIcon: Icon(Icons.check_box_outlined),
-      //           //   hintText: 'John Doe',
-      //           //   labelText: 'Name',
-      //           // ),
-      //         ),
-      //         SizedBox(height: 10,),
-      //         TextFormField(
-      //           controller: _passwordController,
-      //           textAlign: TextAlign.center,
-      //           decoration: InputDecoration(
-      //             hintText: 'Password',
-      //             labelText: 'Password',
-      //           ),
-      //           validator: (value){
-      //             if(value == null || value.isEmpty) {
-      //               return 'Please fill in fields';
-      //             }
-      //             return null;
-      //           },
-      //         ),
-      //         SizedBox(height: 10,),
-      //         ElevatedButton(
-      //             onPressed: (){
-      //               if(_formKey.currentState!.validate()){
-      //                 // TODO: Redirect to the main page or something
-      //               } else{
-      //                 // TODO: The form has some validation errors
-      //                 // TODO: Do something
-      //               }
-      //             },
-      //             child: Text('Submit')
-      //         ),
-      //       ],
-      //     ),
-      //   )
-      // ),
+
     );
   }
 
-  // InputDecoration inputDecoration({
-  //   InputBorder? enabledBorder,
-  //   InputBorder? border,
-  //   Color? fillColor,
-  //   bool? filled,
-  //   Widget? prefixIcon,
-  //   String? hintText,
-  //   String? labelText,
-  // }) =>
-  //     InputDecoration(
-  //       enabledBorder: enabledBorder ??
-  //       OutlineInputBorder(
-  //         borderSide: BorderSide(color: Colors.lime, width: 2.0)),
-  //       border: border ?? OutlineInputBorder(borderSide: BorderSide()),
-  //       fillColor: fillColor ?? Colors.white,
-  //       filled: filled ?? true,
-  //       prefixIcon: prefixIcon,
-  //       hintText: hintText,
-  //       labelText: labelText,
-  //     );
 }
