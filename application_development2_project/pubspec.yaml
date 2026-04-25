@@ -33,11 +33,13 @@ dependencies:
   splashscreen: any
   font_awesome_flutter: any
   firebase_core: any
+  cloud_firestore: any
   google_maps_flutter: any
   url_launcher: any
   image_picker: any
   geolocator: any
   geocoding: any
+  numeric_selector: any
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -65,7 +67,6 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/images/Logo-Test.png
     - assets/json/exercises.json
   # To add assets to your application, add an assets section, like this:
   # assets:

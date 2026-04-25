@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import '../Model/workout.dart';
-import '../constants/app_colors.dart';
+import '../../constants/app_colors.dart';
+import '../../data/sample_data.dart';
+import '../../Model/workout.dart';
 import '../../Model/article.dart';
 import '../../widgets/bottom_nav.dart';
-import '../View/profile/profile_page.dart';
-import '../View/profile/settings_page.dart';
-import '../data/sample_data.dart';
+import '../profile/profile_page.dart';
+import '../profile/settings_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

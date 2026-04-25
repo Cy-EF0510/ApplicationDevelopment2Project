@@ -1,15 +1,11 @@
-class Workout {
+class Article {
   final String title;
   final String imagePath;
-  final String duration;
-  final String calories;
   bool isFavorite;
 
-  Workout({
+  Article({
     required this.title,
     required this.imagePath,
-    required this.duration,
-    required this.calories,
     this.isFavorite = false,
   });
 }

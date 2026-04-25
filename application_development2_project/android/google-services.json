@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "728947567594",
+    "project_id": "sofit-b754c",
+    "storage_bucket": "sofit-b754c.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:728947567594:android:31c86af73194dbccb8a093",
+        "android_client_info": {
+          "package_name": "com.example.application_development2_project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg9Yl56a_AEfkfPPX5valFNWcIuCqxnBY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
