@@ -15,6 +15,8 @@ class User {
   Timestamp? _dob;
   int? _age;
   String? _gender;
+  double? _weight;
+  double? _height;
 
   User({
     String? id,
@@ -28,6 +30,8 @@ class User {
     Timestamp? dob,
     int? age,
     String? gender,
+    double? weight,
+    double? height,
   })  : _id = id,
         _username = username,
         _email = email,
@@ -38,7 +42,9 @@ class User {
         _createdOn = createdOn,
         _dob = dob,
         _age = age,
-        _gender = gender;
+        _gender = gender,
+        _weight = weight,
+        _height = height;
 
   // Setters and Getters
   String? get gender => _gender;
@@ -73,6 +79,12 @@ class User {
   String? get id => _id;
   set id(String? value) => _id = value;
 
+  double? get weight => _weight;
+  set weight(double? value) => _weight = value;
+
+  double? get height => _height;
+  set height(double? value) => _height = value;
+
   // Conversion methods for Firestore
   Map<String, dynamic> toMap() {
     return {
@@ -86,6 +98,8 @@ class User {
       'dob': _dob,
       'age': _age,
       'gender': _gender,
+      'weight': _weight,
+      'height': _height,
     };
   }
 
@@ -102,6 +116,8 @@ class User {
       dob: map['dob'] is Timestamp ? map['dob'] : null,
       age: map['age'],
       gender: map['gender'],
+      weight: (map['weight'] as num?)?.toDouble(),
+      height: (map['height'] as num?)?.toDouble(),
     );
   }
 
@@ -145,6 +161,8 @@ class User {
     Timestamp? newDob,
     int? newAge,
     String? newGender,
+    double? newWeight,
+    double? newHeight,
   }) {
     this.username = newUsername ?? username;
     this.email = newEmail ?? email;
@@ -155,5 +173,7 @@ class User {
     this.dob = newDob ?? dob;
     this.age = newAge ?? age;
     this.gender = newGender ?? gender;
+    this.weight = newWeight ?? weight;
+    this.height = newHeight ?? height;
   }
 }

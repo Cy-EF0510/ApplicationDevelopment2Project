@@ -1,10 +1,14 @@
-import 'package:application_development2_project/Model/user.dart';
 import 'package:flutter/material.dart';
 import '../../constants/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import '../../Model/user.dart';
+import '../../DAO/user_dao.dart';
+import 'age.dart';
+import 'weight.dart'; // This is actually AgeSelectionPage based on my previous implementation
 
 class GenderSelectionPage extends StatefulWidget {
-  const GenderSelectionPage({super.key, required User user});
+  final User user;
+  const GenderSelectionPage({super.key, required this.user});
 
   @override
   State<GenderSelectionPage> createState() => _GenderSelectionPageState();
@@ -12,6 +16,38 @@ class GenderSelectionPage extends StatefulWidget {
 
 class _GenderSelectionPageState extends State<GenderSelectionPage> {
   String selectedGender = "";
+
+  @override
+  void initState() {
+    super.initState();
+    selectedGender = widget.user.gender ?? "";
+  }
+
+  Future<void> _handleContinue() async {
+    if (selectedGender.isEmpty) return;
+
+    widget.user.gender = selectedGender;
+
+    try {
+      UserDao userDao = UserDao();
+      await userDao.updateUser(widget.user);
+
+      if (mounted) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => AgeSelectionPage(user: widget.user),
+          ),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Error saving gender: $e"), backgroundColor: Colors.red),
+        );
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -155,15 +191,14 @@ class _GenderSelectionPageState extends State<GenderSelectionPage> {
                   width: 260,
                   height: 55,
                   child: ElevatedButton(
-                    onPressed: selectedGender.isNotEmpty
-                        ? () {
-                            // TODO: Implement navigation to next setup step
-                          }
-                        : null,
+                    onPressed: selectedGender.isNotEmpty ? _handleContinue : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       elevation: 0,
-                      side: const BorderSide(color: Colors.grey, width: 1.5),
+                      side: BorderSide(
+                        color: selectedGender.isNotEmpty ? kYellow : Colors.grey,
+                        width: 1.5,
+                      ),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(30),
                       ),
