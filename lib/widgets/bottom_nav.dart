@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
-import '../views/home/home_page.dart';
 import '../views/profile/profile_page.dart';
-import '../views/goal/goals_page.dart';
+import '../views/home/workouts/workouts_page.dart';
 
 
 class AppBottomNav extends StatelessWidget {
@@ -24,7 +23,7 @@ class AppBottomNav extends StatelessWidget {
       Navigator.of(context).popUntil((route) => route.isFirst);
     } else if (index == 1) {
       Navigator.of(context).popUntil((route) => route.isFirst);
-      Navigator.push(context, MaterialPageRoute(builder: (_) => const GoalsPage()));
+      Navigator.push(context, MaterialPageRoute(builder: (_) => const WorkoutsPage()));
     } else if (index == 2) {
       Navigator.of(context).popUntil((route) => route.isFirst);
       Navigator.push(context, MaterialPageRoute(builder: (_) => const ProfilePage()));
@@ -35,7 +34,8 @@ class AppBottomNav extends StatelessWidget {
   Widget build(BuildContext context) {
     final icons = [
       Icons.home_rounded,
-      Icons.checklist, Icons.person,
+      Icons.add,
+      Icons.person,
     ];
 
     return Container(

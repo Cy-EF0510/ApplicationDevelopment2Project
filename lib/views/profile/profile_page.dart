@@ -3,7 +3,7 @@ import '../../constants/app_colors.dart';
 import '../../widgets/bottom_nav.dart';
 import 'edit_profile_page.dart';
 import 'favorites_page.dart';
-import 'settings_page.dart';
+import 'settings/settings_page.dart';
 import '../Auth/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:cloud_firestore/cloud_firestore.dart';

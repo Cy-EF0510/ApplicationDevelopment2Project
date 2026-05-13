@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:numeric_selector/numeric_selector.dart';
-import '../../constants/app_colors.dart';
-import '../../models/user.dart';
-import '../../controllers/userController.dart';
+import '../../../constants/app_colors.dart';
+import '../../../models/user.dart';
+import '../../../controllers/userController.dart';
 import 'weight.dart';
 
 class AgeSelectionPage extends StatefulWidget {

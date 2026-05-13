@@ -36,6 +36,7 @@ dependencies:
   splashscreen: any
   font_awesome_flutter: any
   google_maps_flutter: any
+  google_maps_flutter_web: any
   url_launcher: any
   image_picker: any
   google_fonts: ^6.2.1

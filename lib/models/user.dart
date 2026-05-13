@@ -17,6 +17,10 @@ class User {
   String? _gender;
   double? _weight;
   double? _height;
+  List<String> _favoriteExercises;
+  List<String> _favoriteWorkouts;
+  List<Map<String, dynamic>> _customWorkouts;
+  List<Map<String, dynamic>> _workoutHistory;
 
   User({
     String? id,
@@ -31,6 +35,10 @@ class User {
     String? gender,
     double? weight,
     double? height,
+    List<String>? favoriteExercises,
+    List<String>? favoriteWorkouts,
+    List<Map<String, dynamic>>? customWorkouts,
+    List<Map<String, dynamic>>? workoutHistory,
   })  : _id = id,
         _username = username,
         _email = email,
@@ -42,9 +50,24 @@ class User {
         _age = age,
         _gender = gender,
         _weight = weight,
-        _height = height;
+        _height = height,
+        _favoriteExercises = favoriteExercises ?? [],
+        _favoriteWorkouts = favoriteWorkouts ?? [],
+        _customWorkouts = customWorkouts ?? [],
+        _workoutHistory = workoutHistory ?? [];
 
   // Setters and Getters
+  List<String> get favoriteExercises => _favoriteExercises;
+  set favoriteExercises(List<String> value) => _favoriteExercises = value;
+
+  List<String> get favoriteWorkouts => _favoriteWorkouts;
+  set favoriteWorkouts(List<String> value) => _favoriteWorkouts = value;
+
+  List<Map<String, dynamic>> get customWorkouts => _customWorkouts;
+  set customWorkouts(List<Map<String, dynamic>> value) => _customWorkouts = value;
+
+  List<Map<String, dynamic>> get workoutHistory => _workoutHistory;
+  set workoutHistory(List<Map<String, dynamic>> value) => _workoutHistory = value;
   String? get gender => _gender;
   set gender(String? value) => _gender = value;
 
@@ -94,6 +117,10 @@ class User {
       'gender': _gender,
       'weight': _weight,
       'height': _height,
+      'favoriteExercises': _favoriteExercises,
+      'favoriteWorkouts': _favoriteWorkouts,
+      'customWorkouts': _customWorkouts,
+      'workoutHistory': _workoutHistory,
     };
   }
 
@@ -111,6 +138,10 @@ class User {
       gender: map['gender'],
       weight: (map['weight'] as num?)?.toDouble(),
       height: (map['height'] as num?)?.toDouble(),
+      favoriteExercises: List<String>.from(map['favoriteExercises'] ?? []),
+      favoriteWorkouts: List<String>.from(map['favoriteWorkouts'] ?? []),
+      customWorkouts: List<Map<String, dynamic>>.from(map['customWorkouts'] ?? []),
+      workoutHistory: List<Map<String, dynamic>>.from(map['workoutHistory'] ?? []),
     );
   }
 

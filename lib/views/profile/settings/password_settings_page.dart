@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_colors.dart';
-import '../../widgets/bottom_nav.dart';
+import '../../../constants/app_colors.dart';
+import '../../../widgets/bottom_nav.dart';
 
 class PasswordSettingsPage extends StatefulWidget {
   const PasswordSettingsPage({super.key});

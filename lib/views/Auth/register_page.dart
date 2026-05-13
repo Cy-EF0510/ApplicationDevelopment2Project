@@ -4,7 +4,7 @@ import '../../constants/app_colors.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../models/user.dart';
 import '../../controllers/userController.dart';
-import '../profile/gender.dart';
+import '../profile/setup/gender.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class RegisterPage extends StatefulWidget {

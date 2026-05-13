@@ -91,7 +91,6 @@ class _AddGoalSheetState extends State<AddGoalSheet> {
     );
   }
 
-  // ─── Handle ────────────────────────────────────────────────────────────────
   Widget _buildHandle() {
     return Center(
       child: Container(
@@ -104,8 +103,6 @@ class _AddGoalSheetState extends State<AddGoalSheet> {
       ),
     );
   }
-
-  // ─── Title ─────────────────────────────────────────────────────────────────
   Widget _buildSheetTitle() {
     return const Text(
       'New goal',
@@ -118,7 +115,6 @@ class _AddGoalSheetState extends State<AddGoalSheet> {
     );
   }
 
-  // ─── Goal title field ──────────────────────────────────────────────────────
   Widget _buildTitleField() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -137,7 +133,6 @@ class _AddGoalSheetState extends State<AddGoalSheet> {
     );
   }
 
-  // ─── Category picker ───────────────────────────────────────────────────────
   Widget _buildCategoryPicker() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

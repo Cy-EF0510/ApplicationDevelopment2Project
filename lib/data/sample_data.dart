@@ -1,14 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/workout.dart';
 import '../models/article.dart';
-import '../models/quick_access_item.dart';
-
-final List<QuickAccessItem> quickAccessItems = [
-  QuickAccessItem(icon: Icons.fitness_center, label: 'Workout'),
-  QuickAccessItem(icon: Icons.bar_chart, label: 'Progress\nTracking'),
-  QuickAccessItem(icon: Icons.stars, label: 'Achievements'),
-  QuickAccessItem(icon: Icons.pin_drop, label: 'Nearby Gyms'),
-];
 
 final List<Workout> workouts = [
   Workout(

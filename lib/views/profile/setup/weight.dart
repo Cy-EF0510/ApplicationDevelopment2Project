@@ -1,53 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:numeric_selector/numeric_selector.dart';
-import '../../constants/app_colors.dart';
-import '../../models/user.dart';
-import '../../controllers/userController.dart';
-import 'fillProfile.dart';
+import '../../../constants/app_colors.dart';
+import '../../../models/user.dart';
+import '../../../controllers/userController.dart';
+import 'height.dart';
 
-class HeightSelectionPage extends StatefulWidget {
+class WeightSelectionPage extends StatefulWidget {
   final User user;
-  const HeightSelectionPage({super.key, required this.user});
+  const WeightSelectionPage({super.key, required this.user});
 
   @override
-  State<HeightSelectionPage> createState() => _HeightSelectionPageState();
+  State<WeightSelectionPage> createState() => _WeightSelectionPageState();
 }
 
-class _HeightSelectionPageState extends State<HeightSelectionPage> {
-  int selectedHeight = 170;
-  bool isCm = true;
+class _WeightSelectionPageState extends State<WeightSelectionPage> {
+  int selectedWeight = 75;
+  bool isKg = true;
 
   @override
   void initState() {
     super.initState();
-    // Initially assumes value is in CM
-    selectedHeight = widget.user.height?.toInt() ?? 170;
+    selectedWeight = widget.user.weight?.toInt() ?? 75;
   }
 
-  void _toggleUnit(bool toCm) {
-    if (isCm == toCm) return;
+  void _toggleUnit(bool toKg) {
+    if (isKg == toKg) return;
 
     setState(() {
-      if (toCm) {
-        // Convert inches to CM: inches * 2.54
-        selectedHeight = (selectedHeight * 2.54).round();
+      isKg = toKg;
+      if (isKg) {
+        // Convert LB to KG: lb / 2.20462
+        selectedWeight = (selectedWeight / 2.20462).round();
       } else {
-        // Convert CM to total inches: cm / 2.54
-        selectedHeight = (selectedHeight / 2.54).round();
+        // Convert KG to LB: kg * 2.20462
+        selectedWeight = (selectedWeight * 2.20462).round();
       }
-      isCm = toCm;
 
-      // Clamp values to stay within selector range
-      int maxVal = isCm ? 300 : 120; // 300cm or 10ft (120in)
-      if (selectedHeight > maxVal) selectedHeight = maxVal;
-      if (selectedHeight < 0) selectedHeight = 0;
+      // Clamp values to stay within selector range [0, 500]
+      if (selectedWeight > 500) selectedWeight = 500;
+      if (selectedWeight < 0) selectedWeight = 0;
     });
   }
 
   Future<void> _handleContinue() async {
-    // Standardize to CM in database for consistency
-    double heightInCm = isCm ? selectedHeight.toDouble() : selectedHeight * 2.54;
-    widget.user.height = heightInCm;
+    // Revert to KG if LB was selected before saving to Firestore
+    double weightInKg = isKg ? selectedWeight.toDouble() : selectedWeight / 2.20462;
+    widget.user.weight = weightInKg;
 
     try {
       UserDao userDao = UserDao();
@@ -57,14 +55,14 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FillProfilePage(user: widget.user),
+            builder: (context) => HeightSelectionPage(user: widget.user),
           ),
         );
       }
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error saving height: $e"), backgroundColor: Colors.red),
+          SnackBar(content: Text("Error saving weight: $e"), backgroundColor: Colors.red),
         );
       }
     }
@@ -103,7 +101,7 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
             ),
             const SizedBox(height: 30),
             const Text(
-              "What Is Your Height?",
+              "What Is Your Weight?",
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 28,
@@ -111,8 +109,7 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
               ),
             ),
             const SizedBox(height: 20),
-            const SizedBox(height: 40),
-            // CM | FT Toggle
+            // KG | LB Toggle Container
             Container(
               width: 280,
               height: 60,
@@ -127,10 +124,10 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
                       onTap: () => _toggleUnit(true),
                       child: Center(
                         child: Text(
-                          "CM",
+                          "KG",
                           style: TextStyle(
-                            color: isCm ? Colors.black : Colors.black45,
-                            fontWeight: isCm ? FontWeight.bold : FontWeight.normal,
+                            color: isKg ? Colors.black : Colors.black45,
+                            fontWeight: isKg ? FontWeight.bold : FontWeight.normal,
                             fontSize: 18,
                           ),
                         ),
@@ -143,10 +140,10 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
                       onTap: () => _toggleUnit(false),
                       child: Center(
                         child: Text(
-                          "FT",
+                          "LB",
                           style: TextStyle(
-                            color: !isCm ? Colors.black : Colors.black45,
-                            fontWeight: !isCm ? FontWeight.bold : FontWeight.normal,
+                            color: !isKg ? Colors.black : Colors.black45,
+                            fontWeight: !isKg ? FontWeight.bold : FontWeight.normal,
                             fontSize: 18,
                           ),
                         ),
@@ -157,15 +154,16 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
               ),
             ),
             const Spacer(),
+            // The selector's key forces a rebuild when selectedWeight is changed programmatically (via toggle)
             HorizontalNumericSelector(
-              key: ValueKey("height_selector_$isCm"),
+              key: ValueKey("weight_selector_$isKg"),
               minValue: 0,
-              maxValue: isCm ? 300 : 120,
+              maxValue: 500, // to accommodate LB
               step: 1,
-              initialValue: selectedHeight,
+              initialValue: selectedWeight,
               onValueChanged: (value) {
                 setState(() {
-                  selectedHeight = value;
+                  selectedWeight = value;
                 });
               },
               viewPort: 0.3,
@@ -178,64 +176,28 @@ class _HeightSelectionPageState extends State<HeightSelectionPage> {
             ),
             Icon(Icons.arrow_drop_up, color: kYellow, size: 40),
             const SizedBox(height: 10),
-            // Large Display Value
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.baseline,
               textBaseline: TextBaseline.alphabetic,
               children: [
-                if (isCm) ...[
-                  Text(
-                    "$selectedHeight",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 60,
-                      fontWeight: FontWeight.bold,
-                    ),
+                Text(
+                  "$selectedWeight",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 60,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const SizedBox(width: 8),
-                  const Text(
-                    "CM",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  isKg ? "KG" : "LB",
+                  style: const TextStyle(
+                    color: Colors.white70,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
-                ] else ...[
-                  Text(
-                    "${selectedHeight ~/ 12}",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 60,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Text(
-                    "FT ",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    "${selectedHeight % 12}",
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 60,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Text(
-                    "IN",
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+                ),
               ],
             ),
             const Spacer(),

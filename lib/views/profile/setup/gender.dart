@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import '../../constants/app_colors.dart';
+import '../../../constants/app_colors.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '../../models/user.dart';
-import '../../controllers/userController.dart';
+import '../../../models/user.dart';
+import '../../../controllers/userController.dart';
 import 'age.dart';
 import 'weight.dart';
 

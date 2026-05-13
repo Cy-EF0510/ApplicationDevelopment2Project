@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart' as auth;
-import '../../constants/app_colors.dart';
-import '../../controllers/userController.dart';
-import '../../models/user.dart' as model;
-import '../../widgets/bottom_nav.dart';
+import '../../../constants/app_colors.dart';
+import '../../../controllers/userController.dart';
+import '../../../models/user.dart' as model;
+import '../../../widgets/bottom_nav.dart';
 import 'notification_settings_page.dart';
 import 'password_settings_page.dart';
 
@@ -29,10 +29,6 @@ class SettingsPage extends StatelessWidget {
                 return ListView(
                   padding: const EdgeInsets.all(16),
                   children: [
-                    if (user != null) ...[
-                      _ProfileSummaryTile(user: user),
-                      const SizedBox(height: 20),
-                    ],
                     _SettingsTile(
                       icon: Icons.notifications_outlined,
                       label: 'Notification Setting',

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:ui';
 import 'package:firebase_core/firebase_core.dart';
 import 'constants/app_colors.dart';
-import 'views/home/splashscreen.dart';
+import 'views/splashscreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
