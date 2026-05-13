@@ -12,6 +12,7 @@ class TrackingPage extends StatelessWidget {
         title: const Text('Progress Tracking'),
         backgroundColor: kBg,
         elevation: 0,
+        foregroundColor: Colors.white,
       ),
       body: ListView(children: [_buildStreakBanner()]),
     );

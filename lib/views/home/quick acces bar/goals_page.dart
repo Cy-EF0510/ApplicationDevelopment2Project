@@ -74,6 +74,14 @@ class _GoalsPageState extends State<GoalsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: kBg,
+      appBar: AppBar(
+        title: const Text('My Goals',
+        ),
+        backgroundColor: kBg,
+        elevation: 0,
+        foregroundColor: Colors.white,
+      ),
+      // backgroundColor: kBg,
       bottomNavigationBar: AppBottomNav(
         selectedIndex: 1,
         onTap: _onNavTap,
@@ -160,22 +168,15 @@ class _GoalsPageState extends State<GoalsPage> {
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text(
-                      'My Goals',
+                    const SizedBox(height: 2),
+                    Text(
+                      '$count active this month',
                       style: TextStyle(
                         fontFamily: 'Syne',
                         fontSize: 26,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                         height: 1.1,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      '$count active this month',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: kPurple.withOpacity(0.6),
                       ),
                     ),
                   ],
