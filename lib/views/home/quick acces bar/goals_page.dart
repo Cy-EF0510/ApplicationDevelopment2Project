@@ -75,11 +75,14 @@ class _GoalsPageState extends State<GoalsPage> {
     return Scaffold(
       backgroundColor: kBg,
       appBar: AppBar(
-        title: const Text('My Goals',
-        ),
+        title: const Text('My Goals'),
         backgroundColor: kBg,
         elevation: 0,
         foregroundColor: Colors.white,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_rounded),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       // backgroundColor: kBg,
       bottomNavigationBar: AppBottomNav(
@@ -160,28 +163,28 @@ class _GoalsPageState extends State<GoalsPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: StreamBuilder<List<Goal>>(
-              stream: _goalsService.goalsStream(),
-              builder: (context, snapshot) {
-                final count =
-                    snapshot.data?.where((g) => !g.isCompleted).length ?? 0;
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(height: 2),
-                    Text(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 2),
+                StreamBuilder<List<Goal>>(
+                  stream: _goalsService.goalsStream(),
+                  builder: (context, snapshot) {
+                    final count =
+                        snapshot.data?.where((g) => !g.isCompleted).length ?? 0;
+                    return Text(
                       '$count active this month',
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Syne',
                         fontSize: 26,
                         fontWeight: FontWeight.w700,
                         color: Colors.white,
                         height: 1.1,
                       ),
-                    ),
-                  ],
-                );
-              },
+                    );
+                  },
+                ),
+              ],
             ),
           ),
           GestureDetector(

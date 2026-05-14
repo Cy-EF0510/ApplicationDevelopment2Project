@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart' as auth;
 import '../../../constants/app_colors.dart';
 import '../../../controllers/userController.dart';
 import '../../../models/user.dart' as model;
-//import 'create_workout_page.dart';
+import 'create_workout_page.dart';
 
 import 'workout_detail_page.dart';
 
@@ -117,16 +117,15 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
         foregroundColor: Colors.white,
         actions: [
           IconButton(
-            onPressed: (){},
-            // onPressed: () async {
-            //   if (_currentUser != null) {
-            //     final result = await Navigator.push(
-            //       context,
-            //       MaterialPageRoute(builder: (_) => CreateWorkoutPage(user: _currentUser!)),
-            //     );
-            //     if (result == true) _loadData();
-            //   }
-            // },
+            onPressed: () async {
+              if (_currentUser != null) {
+                final result = await Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => CreateWorkoutPage(user: _currentUser!)),
+                );
+                if (result == true) _loadData();
+              }
+            },
             icon: const Icon(Icons.add_circle_outline, color: kYellow),
           )
         ],
